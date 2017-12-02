@@ -15,10 +15,7 @@ for file in path:
     if file.endswith('.py'):
         cmds.append(file.replace('.py', ''))
 
-quotes = []
-with open('quotes.txt', 'r') as textf:
-    for line in textf:
-        quotes.append(line[4:])
+
 
 client = commands.Bot(description="A bot. What do you expect this description to say?!?!",command_prefix=["oof ", "oof"],game=discord.Game(name=f"Default prefix is oof"))
 client.remove_command("help")
@@ -42,7 +39,7 @@ async def on_ready():
             except Exception as e:
                 exc = '{}: {}'.format(type(e).__name__, e)
                 print('Failed to load extension {}\n{}'.format(extension, exc))
-    print(random.choice(quotes))
+    print("LOADED!")
 
   
 @client.event
