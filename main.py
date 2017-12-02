@@ -5,7 +5,7 @@ import requests
 import asyncio
 import discord
 from discord.ext import commands
-import os
+import os, subprocess
 import json
 import random
 
@@ -65,4 +65,4 @@ async def on_guild_join(guild):
             continue
   
   
-client.run(int(os.environ.get('TOKEN')))
+client.run(int(subprocess.check_output(['echo', '$TOKEN'], shell=True)))
