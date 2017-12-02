@@ -15,15 +15,6 @@ class Utility:
         message = ctx.message
         colors = [0x6699ff, 0xffccff, 0x99ffcc, 0xff9966, 0xffff99, 0xff0066, 0xcc00ff, 0x66ffff]
         if cmdname == None:
-            for cog in self.bot.cogs:
-                x = ""
-                if str(cog).lower() == 'creator' and message.author.id != 264312374931095552:
-                    continue
-                for cmd in self.bot.get_cog_commands(cog):
-                    cogcmd = self.bot.get_command(str(cmd))
-                    x += f"**{str(cmd)}** | ``{str(cogcmd.help)}``\n"
-                embed = discord.Embed(title = str(cog), description = self.bot.cogs[cog].__doc__+f"\n\n{x}", color = random.choice(colors))
-                await message.author.send(embed=embed)
             try:
                 for cog in self.bot.cogs:
                     x = ""
