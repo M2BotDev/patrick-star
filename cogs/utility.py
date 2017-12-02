@@ -24,7 +24,20 @@ class Utility:
                     x += f"**{str(cmd)}** | ``{str(cogcmd.help)}``\n"
                 embed = discord.Embed(title = str(cog), description = self.bot.cogs[cog].__doc__+f"\n\n{x}", color = random.choice(colors))
                 await message.author.send(embed=embed)
-            await message.channel.send('Check your DMs :mailbox_with_mail:')
+            try:
+                for cog in self.bot.cogs:
+                    x = ""
+                    if str(cog).lower() == 'creator' and message.author.id != 264312374931095552:
+                        continue
+                    for cmd in self.bot.get_cog_commands(cog):
+                        cogcmd = self.bot.get_command(str(cmd))
+                        x += f"**{str(cmd)}** | ``{str(cogcmd.help)}``\n"
+                    embed = discord.Embed(title = str(cog), description = self.bot.cogs[cog].__doc__+f"\n\n{x}", color = random.choice(colors))
+                    await message.author.send(embed=embed)
+                await message.channel.send('Check your DMs :mailbox_with_mail:')
+            except:
+                await message.channel.send("I don't have permission to DM you! Please enable direct messages from server members.\nhttps://cdn.discordapp.com/attachments/102690041813303296/386666555049771008/unknown.png")
+
         else:
             cmdname = str(cmdname).lower()
             cog = self.bot.get_command(cmdname)
