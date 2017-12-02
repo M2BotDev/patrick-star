@@ -65,4 +65,4 @@ async def on_guild_join(guild):
             continue
   
   
-client.run(process.env.TOKEN)
+client.run(process.env['TOKEN']])
