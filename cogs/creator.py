@@ -16,7 +16,7 @@ class Creator:
         self.quotes = []
 
     @commands.command(no_pm=True, pass_context=True, aliases=['code'])
-    async def eval(self,ctx,code=None):
+    async def eval(self,ctx,*,code=None):
         """Executes code."""
         message = ctx.message
         if message.author.id != 264312374931095552:
