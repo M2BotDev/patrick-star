@@ -30,7 +30,7 @@ async def on_command_error(ctx, error):
 
 @client.event
 async def on_ready():
-    await client.user.edit(username='Patrick Star', avatar=open('patrick.jpg', 'rb').read())
+    #await client.user.edit(username='Patrick Star', avatar=open('patrick.jpg', 'rb').read())
     if __name__ == "__main__":
         for extension in cmds:
             try:
