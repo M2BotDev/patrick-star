@@ -1,4 +1,4 @@
-# Next-gen Ro-Verify
+﻿# Next-gen Ro-Verify
 # host on heroku? yeah. what the heck is heroku :joy: . a free place to host the bot online
 # where to store data though? -->
 import requests
@@ -30,7 +30,7 @@ async def on_command_error(ctx, error):
 
 @client.event
 async def on_ready():
-    #await client.user.edit(username='Patrick Star', avatar=open('patrick.jpg', 'rb').read())
+    await client.user.edit(username='Patrick Star', avatar=open('patrick.jpg', 'rb').read())
     if __name__ == "__main__":
         for extension in cmds:
             try:
