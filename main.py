@@ -17,7 +17,7 @@ for file in path:
 
 
 
-client = commands.Bot(description="A bot. What do you expect this description to say?!?!",command_prefix=["oof ", "oof"],game=discord.Game(name=f"Default prefix is oof"))
+client = commands.Bot(description="A bot. What do you expect this description to say?!?!",command_prefix=["oof ", "oof"],game=discord.Game(name=f"oof help 👍"))
 client.remove_command("help")
 @client.event
 async def on_command_error(ctx, error):
