@@ -57,7 +57,7 @@ class Moderation:
         message = ctx.message
         if message.content.startswith("oof "):
             if len(message.mentions) <= 0:
-                await message.channel.send('Do you mind adding someone for me to kick?')
+                await message.channel.send('Do you mind adding someone for me to ban?')
                 return
             member = message.mentions[0]
         try:

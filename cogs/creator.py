@@ -21,22 +21,8 @@ class Creator:
         message = ctx.message
         if message.author.id != 264312374931095552:
             return
-        code = f"""{code}"""
-        code = re.sub('`', '', code)
-        @contextlib.contextmanager
-        def stdoutIO(stdout=None):
-            old = sys.stdout
-            if stdout is None:
-                stdout = StringIO.StringIO()
-            sys.stdout = stdout
-            yield stdout
-            sys.stdout = old
-        thetext = ""
-        stuffs = {}
         try:
-            with stdoutIO() as s:
-                exec(code)
-            thetext = s.getvalue()
+            thetext = str(exec(code))
         except Exception as e:
             thetext = e
         if thetext == "":

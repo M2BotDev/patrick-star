@@ -114,9 +114,12 @@ class Fun:
         await message.channel.send(f":8ball: {random.choice(fortunes)}")
 
     @commands.command(no_pm=True, pass_context=True)
-    async def say(self,ctx,*,text):
+    async def say(self,ctx,*,text=None):
         """I'll repeat what you say! <3"""
         message = ctx.message
+	if not text:
+		await message.channel.send("I need something to say!")
+		return
         embed = discord.Embed(color=0xff0066, description=text)
         await message.channel.send(embed=embed)
 
