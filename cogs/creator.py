@@ -21,13 +21,14 @@ class Creator:
         message = ctx.message
         if message.author.id != 264312374931095552:
             return
+	code = f"""{code}"""
         try:
             thetext = str(eval(code))
         except Exception as e:
             thetext = e
         if thetext == "":
             thetext = None
-        await message.channel.send(f"**Code**\n```py\n{str(code)}\n```\n\n**Result**\n```\n{str(thetext)}\n```")
+        await message.channel.send(f"``{thetext}``")
 
     @commands.command(no_pm=True, pass_context=True)
     async def reload(self,ctx):
