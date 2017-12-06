@@ -22,7 +22,7 @@ class Creator:
         if message.author.id != 264312374931095552:
             return
         try:
-            thetext = str(exec(code))
+            thetext = str(eval(code))
         except Exception as e:
             thetext = e
         if thetext == "":
@@ -73,7 +73,7 @@ class Creator:
                 pass
         embed = discord.Embed(title="Creator", description=info+"\n"+g, color=0x99ffcc)
         await message.author.send(embed=embed)
-        await message.channel.send("DMed!!!!")
+        await message.channel.send(":mailbox: check your messages!")
             
 def setup(bot):
     p = Creator(bot)
