@@ -117,7 +117,7 @@ class Fun:
     async def say(self,ctx,*,text=None):
         """I'll repeat what you say! <3"""
         message = ctx.message
-	    if not text:
+        if not text:
 		    await message.channel.send("I need something to say!")
 		    return
         embed = discord.Embed(color=0xff0066, description=text)
