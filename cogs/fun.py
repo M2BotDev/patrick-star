@@ -17,7 +17,18 @@ class Fun:
         """Creates a vote!"""
         message = ctx.message
         if votetext == None:
-            await message.channel.send('I need something to say!')
+            embed_cmdname = "vote"
+            embed_cmdexample = "oof vote Should we start doing daily giveaways?"
+
+            embed_cmd = self.bot.get_command(embed_cmdname)
+            aliases = ""
+            for alias in embed_cmd.aliases:
+                aliases += "-"+alias+" "
+            if aliases == " ":
+                aliases = ':no_entry_sign:'
+            text = f"**ALIASES** {aliases}\n**DESCRIPTION** {embed_cmd.help}\n**USAGE**\n{embed_cmdexample}"
+            embed = discord.Embed(title=f"Command: -{embed_cmdname}", description = text, color=0xff0066)
+            await message.channel.send(embed=embed)
             return
         embed = discord.Embed(tile="Vote", description=votetext,color=0xff0066)
         embed.set_footer(text='Vote created by '+message.author.name+"#"+message.author.discriminator, icon_url=message.author.avatar_url)
@@ -36,7 +47,7 @@ class Fun:
 
     @commands.command(no_pm=True, pass_context=True, aliases=['userinformation', 'user'])
     async def userinfo(self,ctx):
-        """Gets a user information."""
+        """Gives you a players information."""
         message = ctx.message
         user = message.author
         if len(message.mentions) >= 1:
@@ -64,10 +75,21 @@ class Fun:
         
     @commands.command(no_pm=True, pass_context=True, aliases=['choice', 'choose'])
     async def pick(self,ctx,*,choices=None):
-        """Picks a random choice. Splits by comma"""
+        """Picks between options."""
         message = ctx.message
         if choices==None:
-            await message.channel.send("Give me something to choose!")
+            embed_cmdname = "pick"
+            embed_cmdexample = "oof pick python, lua, javascript, c#"
+
+            embed_cmd = self.bot.get_command(embed_cmdname)
+            aliases = ""
+            for alias in embed_cmd.aliases:
+                aliases += "-"+alias+" "
+            if aliases == " ":
+                aliases = ':no_entry_sign:'
+            text = f"**ALIASES** {aliases}\n**DESCRIPTION** {embed_cmd.help}\n**USAGE**\n{embed_cmdexample}"
+            embed = discord.Embed(title=f"Command: -{embed_cmdname}", description = text, color=0xff0066)
+            await message.channel.send(embed=embed)
             return
         choices = str(choices)
         choices = choices.split(',')
@@ -78,10 +100,22 @@ class Fun:
         
     @commands.command(no_pm=True, pass_context=True)
     async def rate(self,ctx, am=None):
-        """Rates you out of stars!"""
+        """Rates you out of stars."""
         message = ctx.message
         if am == None:
-            am = 5
+            embed_cmdname = "rate"
+            embed_cmdexample = "oof rate 5 me\noof rate my homework\noof rate 12"
+
+            embed_cmd = self.bot.get_command(embed_cmdname)
+            aliases = ""
+            for alias in embed_cmd.aliases:
+                aliases += "-"+alias+" "
+            if aliases == " ":
+                aliases = ':no_entry_sign:'
+            text = f"**ALIASES** {aliases}\n**DESCRIPTION** {embed_cmd.help}\n**USAGE**\n{embed_cmdexample}"
+            embed = discord.Embed(title=f"Command: -{embed_cmdname}", description = text, color=0xff0066)
+            await message.channel.send(embed=embed)
+            return
         try:
             am = int(am)
             am -= 0
@@ -103,10 +137,21 @@ class Fun:
         
     @commands.command(no_pm=True, pass_context=True, aliases=['8ball', 'ask'])
     async def fortune(self,ctx,*,question=None):
-        """Ask me anything!"""
+        """Gives you a fortune."""
         message = ctx.message
         if question == None:
-            await message.channel.send("You must ask me something!")
+            embed_cmdname = "fortune"
+            embed_cmdexample = "oof 8ball Am I a legend?"
+
+            embed_cmd = self.bot.get_command(embed_cmdname)
+            aliases = ""
+            for alias in embed_cmd.aliases:
+                aliases += "-"+alias+" "
+            if aliases == " ":
+                aliases = ':no_entry_sign:'
+            text = f"**ALIASES** {aliases}\n**DESCRIPTION** {embed_cmd.help}\n**USAGE**\n{embed_cmdexample}"
+            embed = discord.Embed(title=f"Command: -{embed_cmdname}", description = text, color=0xff0066)
+            await message.channel.send(embed=embed)
             return
         fortunes = ["Yes", "No", "Uhh....yes?", "Well...uh....no", "Nope", "Yep"
                     ,"YES!!!!!", "NO!", "Yeah...no", "Mhm", "Obviously", "Obviously not", "Correct!", "Wrong!", "Peanut", "No.....no...no..no", "Uh ask again later.."]
@@ -115,17 +160,28 @@ class Fun:
 
     @commands.command(no_pm=True, pass_context=True)
     async def say(self,ctx,*,text=None):
-        """I'll repeat what you say! <3"""
+        """Repeats a message."""
         message = ctx.message
         if not text:
-            await message.channel.send("I need something to say!")
+            embed_cmdname = "say"
+            embed_cmdexample = "oof say Bot mode ***activated***."
+
+            embed_cmd = self.bot.get_command(embed_cmdname)
+            aliases = ""
+            for alias in embed_cmd.aliases:
+                aliases += "-"+alias+" "
+            if aliases == " ":
+                aliases = ':no_entry_sign:'
+            text = f"**ALIASES** {aliases}\n**DESCRIPTION** {embed_cmd.help}\n**USAGE**\n{embed_cmdexample}"
+            embed = discord.Embed(title=f"Command: -{embed_cmdname}", description = text, color=0xff0066)
+            await message.channel.send(embed=embed)
             return
         embed = discord.Embed(color=0xff0066, description=text)
         await message.channel.send(embed=embed)
 
     @commands.command(no_pm=True, pass_contex=True, aliases=['avatarurl', 'avatar_url'])
     async def avatar(self,ctx):
-        """Gets the avatar of a user."""
+        """Gets a users avatar."""
         message = ctx.message
         if len(message.mentions) <= 0:
             user = message.author
@@ -138,7 +194,7 @@ class Fun:
     
     @commands.command(no_pm=True, pass_contex=True)
     async def mock(self,ctx,*,text=None):
-        """Mocks what you say!"""
+        """Mocks what you say."""
         message = ctx.message
         if text != None:
             newtext = ""
@@ -152,10 +208,24 @@ class Fun:
             embed=discord.Embed(description=newtext, color=0xff0066)
             embed.set_image(url="http://i0.kym-cdn.com/entries/icons/original/000/022/940/spongebobicon.jpg")
             await message.channel.send(embed=embed)
+        else:
+            embed_cmdname = "mock"
+            embed_cmdexample = "oof mock I'm a mod and I'm gonna ban you!"
+
+            embed_cmd = self.bot.get_command(embed_cmdname)
+            aliases = ""
+            for alias in embed_cmd.aliases:
+                aliases += "-"+alias+" "
+            if aliases == " ":
+                aliases = ':no_entry_sign:'
+            text = f"**ALIASES** {aliases}\n**DESCRIPTION** {embed_cmd.help}\n**USAGE**\n{embed_cmdexample}"
+            embed = discord.Embed(title=f"Command: -{embed_cmdname}", description = text, color=0xff0066)
+            await message.channel.send(embed=embed)
+            return
 
     @commands.command(no_pm=True, pass_contex=True, aliases=['bigletters', 'bigwords', 'hugewords', 'bigtext', 'hugetext'])
     async def bigword(self,ctx,*,text=None):
-        """Makes everything you said bigger"""
+        """Makes what you say bigger."""
         message = ctx.message
         letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
         numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
@@ -189,13 +259,37 @@ class Fun:
                          newtext += f"**{letter}** "
             embed=discord.Embed(description=newtext, color=0xff0066)
             await message.channel.send(embed=embed)
+        else:
+            embed_cmdexample = "oof bigword Howdy!"
+
+            embed_cmd = self.bot.get_command(embed_cmdname)
+            aliases = ""
+            for alias in embed_cmd.aliases:
+                aliases += "-"+alias+" "
+            if aliases == " ":
+                aliases = ':no_entry_sign:'
+            text = f"**ALIASES** {aliases}\n**DESCRIPTION** {embed_cmd.help}\n**USAGE**\n{embed_cmdexample}"
+            embed = discord.Embed(title=f"Command: -{embed_cmdname}", description = text, color=0xff0066)
+            await message.channel.send(embed=embed)
+            return
 
     @commands.command(no_pm=True, pass_contex=True)
     async def urban(self,ctx,*,word=None):
-        """Gets results from urban dictionary!"""
+        """Gets definitions from urban dictionary."""
         message = ctx.message
         if word == None:
-            await message.channel.send("Please enter something for me to search!")
+            embed_cmdname = "urban"
+            embed_cmdexample = "oof urban money"
+
+            embed_cmd = self.bot.get_command(embed_cmdname)
+            aliases = ""
+            for alias in embed_cmd.aliases:
+                aliases += "-"+alias+" "
+            if aliases == " ":
+                aliases = ':no_entry_sign:'
+            text = f"**ALIASES** {aliases}\n**DESCRIPTION** {embed_cmd.help}\n**USAGE**\n{embed_cmdexample}"
+            embed = discord.Embed(title=f"Command: -{embed_cmdname}", description = text, color=0xff0066)
+            await message.channel.send(embed=embed)
             return
         word = re.sub(" ", "+", word.lower())
         link = f"http://api.urbandictionary.com/v0/define?term={word}"
@@ -203,7 +297,7 @@ class Fun:
         text = source.text
         jsonv = json.loads(text)
         if jsonv["result_type"] == "no_results":
-            await message.channel.send("That word doesn't exist!")
+            await message.channel.send("That word/statement doesn't exist!")
             return
         first = jsonv["list"][0]
         print(first['definition'])

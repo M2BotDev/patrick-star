@@ -10,44 +10,27 @@ class Utility:
     def __init__(self, bot):
         self.bot = bot
     @commands.command(no_pm=True, pass_contex=True, aliases=['halp', 'cmds', 'cmdz', 'commands', 'commandz'])
-    async def help(self,ctx, cmdname = None):
-        """Displays this message."""
+    async def help(self,ctx):
+        """Gives you help."""
         message = ctx.message
-        colors = [0x6699ff, 0xffccff, 0x99ffcc, 0xff9966, 0xffff99, 0xff0066, 0xcc00ff, 0x66ffff]
-        if cmdname == None:
-            try:
-                for cog in self.bot.cogs:
-                    x = ""
-                    if str(cog).lower() == 'creator' and message.author.id != 264312374931095552:
-                        continue
-                    for cmd in self.bot.get_cog_commands(cog):
-                        cogcmd = self.bot.get_command(str(cmd))
-                        x += f"**{str(cmd)}** | ``{str(cogcmd.help)}``\n"
-                    embed = discord.Embed(title = str(cog), description = self.bot.cogs[cog].__doc__+f"\n\n{x}", color = random.choice(colors))
-                    await message.author.send(embed=embed)
-                await message.channel.send('Check your DMs :mailbox_with_mail:')
-            except:
-                await message.channel.send("I don't have permission to DM you! Please enable direct messages from server members.\nhttps://cdn.discordapp.com/attachments/102690041813303296/386666555049771008/unknown.png")
-
-        else:
-            cmdname = str(cmdname).lower()
-            cog = self.bot.get_command(cmdname)
-            if cog == None:
-                await message.channel.send('That command doesn\'t exist! Do **oof help** to see all commands.')
-                return
-            w = ""
-            for x in cog.aliases:
-                w += x+" "
-            embed = discord.Embed(color = random.choice(colors), description = f"This command is part of {str(cog.cog_name) or 'no category'}.", title="Help")
-            wo = f"**NAME** >> {cog.name}\n**DESCRIPTION** >> {cog.help}"
-            if w != "":
-                wo += f"\n**ALIASES** >> {w}"
-            embed.add_field(name="Cog Information", value=wo)
-            await message.channel.send(embed=embed)
-
+        strng = ""
+        try:
+            for cog in self.bot.cogs:
+                if str(cog).lower() == "creator" and message.author.id != 264312374931095552:
+                    continue
+                print(cog)
+                strng += f"\n***__{cog}__***\n\n"
+                for command in self.bot.get_cog_commands(cog):
+                    strng += f"**{str(command)}** : *{self.bot.get_command(str(command)).help}*\n"
+            await message.author.send(strng)
+            await message.channel.send(":mailbox: Commands in your messages!")
+        except:
+            await message.channel.send("I wasn't able to DM you! Please enable dms from server members.")
+        
+                
     @commands.command(no_pm=True, pass_context=True)
     async def invite(self,ctx):
-        """Discord invite to my rock and the link to invite me!"""
+        """Gives you an invite."""
         message = ctx.message
         await message.channel.send(embed=discord.Embed(
             title="Bot Invite",
@@ -57,7 +40,7 @@ class Utility:
 
     @commands.command(no_pm=True, pass_context=True)
     async def ping(self,ctx):
-        """Checks the bots response time!"""
+        """Pong!"""
         message = ctx.message
         await message.channel.send("Pong!")
         

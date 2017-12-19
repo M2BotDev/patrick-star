@@ -8,36 +8,66 @@ class Moderation:
     """Commands for moderating your server."""
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.bot_has_permissions(manage_messages=True)
     @commands.has_permissions(manage_messages=True)
     @commands.command(no_pm=True, pass_contex=True, aliases=['prune', 'bulk', 'bulkdelete', 'bulkremove', 'clean'])
     async def purge(self,ctx,amount=None):
-        """Clears messages."""
+        """Purges messages."""
         message = ctx.message
-        if amount is None:
-            await message.channel.send(f'If you want to purge messages, you need to enter a value for me to purge.')
-            return
         try:
             amount = int(amount)
         except:
-            await message.channel.send(f'Did you really attempt to purge ``{amount}`` messages?')
+            pass
+        if amount is None or not isinstance(amount, int):
+            embed_cmdname = "purge"
+            embed_cmdexample = "oof purge 12"
+
+            embed_cmd = self.bot.get_command(embed_cmdname)
+            aliases = ""
+            for alias in embed_cmd.aliases:
+                aliases += "-"+alias+" "
+            if aliases == " ":
+                aliases = ':no_entry_sign:'
+            text = f"**ALIASES** {aliases}\n**DESCRIPTION** {embed_cmd.help}\n**USAGE**\n{embed_cmdexample}"
+            embed = discord.Embed(title=f"Command: -{embed_cmdname}", description = text, color=0xff0066)
+            await message.channel.send(embed=embed)
             return
         
-        if amount > 300:
-            await message.channel.send(f'You\'re really pushing my buttons. No bigger than 300!')
+        if amount > 100:
+            await message.channel.send(f':rage: It can\'t be anymore than 100!!')
+            return
+        if amount < 2:
+            await message.channel.send(f':rage: It can\'t be anyless than 2!!')
             return
 
         try:
             await message.channel.purge(limit = int(amount), bulk = True)
-            await message.channel.send(f'I successfully purged ``{amount}`` messages! Can I get a cookie? :cookie:')
+            await message.channel.send(f':raised_hand: :weary: :ok_hand: Purged!')
         except:
-            await message.channel.send(f'I\'m sorry I failed to purge ``{amount}`` messages. Please don\'t hurt me!')
+            await message.channel.send(f':sweat_drops: I couldn\'t purge!')
             return
 
+    @commands.bot_has_permissions(kick_members=True)
     @commands.has_permissions(kick_members=True)
     @commands.command(no_pm=True, pass_contex=True, aliases=['delete'])
     async def kick(self,ctx):
-        """Kicks a member from the discord server."""
+        """Kicks a user from the discord."""
         message = ctx.message
+        if len(message.mentions) <= 0:
+            embed_cmdname = "kick"
+            embed_cmdexample = "oof kick @someguy#1234"
+
+            embed_cmd = self.bot.get_command(embed_cmdname)
+            aliases = ""
+            for alias in embed_cmd.aliases:
+                aliases += "-"+alias+" "
+            if aliases == " ":
+                aliases = ':no_entry_sign:'
+            text = f"**ALIASES** {aliases}\n**DESCRIPTION** {embed_cmd.help}\n**USAGE**\n{embed_cmdexample}"
+            embed = discord.Embed(title=f"Command: -{embed_cmdname}", description = text, color=0xff0066)
+            await message.channel.send(embed=embed)
+            return
         if message.content.startswith("oof "):
             if len(message.mentions) <= 0:
                 await message.channel.send('Do you mind adding someone for me to kick?')
@@ -50,16 +80,27 @@ class Moderation:
             await message.channel.send(f'Well, that could of went better than expected. I wasn\'t able to kick {member.name}..')
             return
 
+    @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
     @commands.command(no_pm=True, pass_contex=True, aliases=['permdelete'])
     async def ban(self,ctx):
-        """Bans a member from the discord server."""
+        """Bans a user from the discord."""
         message = ctx.message
-        if message.content.startswith("oof "):
-            if len(message.mentions) <= 0:
-                await message.channel.send('Do you mind adding someone for me to ban?')
-                return
-            member = message.mentions[0]
+        if len(message.mentions) <= 0:
+            embed_cmdname = "ban"
+            embed_cmdexample = "oof ban @someguy#1234"
+
+            embed_cmd = self.bot.get_command(embed_cmdname)
+            aliases = ""
+            for alias in embed_cmd.aliases:
+                aliases += "-"+alias+" "
+            if aliases == " ":
+                aliases = ':no_entry_sign:'
+            text = f"**ALIASES** {aliases}\n**DESCRIPTION** {embed_cmd.help}\n**USAGE**\n{embed_cmdexample}"
+            embed = discord.Embed(title=f"Command: -{embed_cmdname}", description = text, color=0xff0066)
+            await message.channel.send(embed=embed)
+            return
+
         try:
             await member.ban()
             await message.channel.send(f'I have successfully deleted {member.mention}')

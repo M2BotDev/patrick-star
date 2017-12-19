@@ -17,14 +17,14 @@ for file in path:
 
 
 
-client = commands.Bot(description="A bot. What do you expect this description to say?!?!",command_prefix=["oof ", "oof"],game=discord.Game(name=f"oof help 👍"))
+client = commands.Bot(description="A bot. What do you expect this description to say?!?!",command_prefix='oof ',game=discord.Game(name=f"oof help 👍"))
 client.remove_command("help")
 @client.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
-        await ctx.send("This command requires more permissions.")
+        await ctx.send(":no_entry_sign: You don't have permission to use this command! :icecream:")
     elif isinstance(error, commands.BotMissingPermissions):
-        await ctx.send('Ahhh!! I\'m missing permissions to use this command!!')
+        await ctx.send(':boom: Ahhhhh I don\'t have permission! :cry:')
     else:
         print(error)
 
@@ -46,6 +46,8 @@ async def on_ready():
 async def on_message(message):
     if message.author.bot == True:
         return
+    if message.author == client.user:
+        return
     if not message.guild is None:
         await client.process_commands(message)
         pass
@@ -56,10 +58,10 @@ async def on_message(message):
 async def on_guild_join(guild):
     for channel in guild.channels:
         try:
-            await channel.send("I sexually identify as a discord bot.")
+            await guild.owner.send('hi')
             return
         except:
             continue
   
   
-client.run(str(os.environ.get('TOKEN')))
+client.run("Mzg4NDI0NjM3Mzc5Mzc5MjEw.DQs0LQ.lwKcZBqVCl-MCaeFyxV-uhNNguA")

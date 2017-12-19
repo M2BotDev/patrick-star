@@ -21,6 +21,20 @@ class Creator:
         message = ctx.message
         if message.author.id != 264312374931095552:
             return
+        if code == None:
+            embed_cmdname = "eval"
+            embed_cmdexample = "oof eval message.author.id"
+
+            embed_cmd = self.bot.get_command(embed_cmdname)
+            aliases = ""
+            for alias in embed_cmd.aliases:
+                aliases += "-"+alias+" "
+            if aliases == " ":
+                aliases = ':no_entry_sign:'
+            text = f"**ALIASES** {aliases}\n**DESCRIPTION** {embed_cmd.help}\n**USAGE**\n{embed_cmdexample}"
+            embed = discord.Embed(title=f"Command: -{embed_cmdname}", description = text, color=0xff0066)
+            await message.channel.send(embed=embed)
+            return
         code = f"""{code}"""
         try:
             thetext = str(eval(code))
@@ -32,7 +46,7 @@ class Creator:
 
     @commands.command(no_pm=True, pass_context=True)
     async def reload(self,ctx):
-        """Reloads cogs."""
+        """Reloads commands!"""
         message = ctx.message
         if message.author.id != 264312374931095552:
             return
@@ -52,16 +66,17 @@ class Creator:
             except Exception as e:
                 exc = '{}: {}'.format(type(e).__name__, e)
                 print('Failed to load extension {}\n{}'.format(extension, exc))
-        await message.channel.send("OOF, successfully reloaded cogs!")
+        await message.channel.send(":white_check_mark: Successfully reloaded cogs!")
     @commands.command(no_pm=True, pass_contex=True, aliases=["servers", "discords"])
     async def guilds(self,ctx):
-        """Servers the bot is in."""
+        """Gives you a list of the guilds I'm in!"""
         message = ctx.message
         if message.author.id != 264312374931095552:
+            await message.channel.send(f"I'm in ***{len(self.bot.guilds)}*** guilds! :heart:")
             return
-        info = "List of all the bots servers!"
         g = ""
         x = len(self.bot.guilds)
+        info = f"List of all the bots servers! ({x})"
         if x >= 50:
             info = f"Only showing 50 out of {x} servers."
             x = 50
@@ -74,7 +89,7 @@ class Creator:
                 pass
         embed = discord.Embed(title="Creator", description=info+"\n"+g, color=0x99ffcc)
         await message.author.send(embed=embed)
-        await message.channel.send(":mailbox: check your messages!")
+        await message.channel.send(":mailbox: Check your messages!")
             
 def setup(bot):
     p = Creator(bot)

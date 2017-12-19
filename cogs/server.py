@@ -37,7 +37,10 @@ class Server:
         for x in message.guild.emojis:
             y += f"<:{x.name.lower()}:{x.id}>"
         if y == "": y = "This discord has no emojis."
-        await message.channel.send(y)
+        try:
+            await message.channel.send(y)
+        except:
+            await message.channel.send('The discord has too many emojis! I can\'t send them!')
 
 def setup(bot):
     p = Server(bot)
