@@ -77,9 +77,10 @@ class Creator:
         g = ""
         x = len(self.bot.guilds)
         info = f"List of all the bots servers! ({x})"
-        if x >= 50:
-            info = f"Only showing 50 out of {x} servers."
-            x = 50
+        maxg = 20
+        if x >= maxg:
+            info = f"Only showing {maxg} out of {x} servers."
+            x = maxg
         for guild in self.bot.guilds[:x]:
             g += f'\n**{guild.name}** :  ``{len(guild.members)}`` members.'
             try:
